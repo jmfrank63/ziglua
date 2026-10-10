@@ -10,7 +10,7 @@ Ziglua can be used in two ways, either
 
 In both cases, Ziglua will compile Lua from source and link against your Zig code making it easy to create software that integrates with Lua without requiring any system Lua libraries.
 
-**This is the `zig-0.16.0` branch: it supports Zig 0.16.0.** Ziglua `main` is kept up to date with Zig `master` and will not build on Zig 0.16.0. See the [`zig-0.15.2`](https://github.com/natecraddock/ziglua/tree/zig-0.15.2) branch for Zig 0.15.2 support.
+**This is the `zig-0.17` branch: it supports Zig 0.17.0 and builds Lua 5.4.8 for `.lang = .lua54`.** It is the `zig-0.16.0` branch plus only the edits Zig 0.17.0 forces.
 
 ## Documentation
 Docs are automatically generated and contain a guide on getting started with ziglua. Most functions and public declarations are documented:

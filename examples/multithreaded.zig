@@ -10,7 +10,7 @@ var io: std.Io = undefined;
 
 export fn lua_zlock(L: *zlua.LuaState) callconv(.c) void {
     _ = L;
-    mutex.lockUncancelable(io);
+    mutex.lock(io) catch {};
 }
 
 export fn lua_zunlock(L: *zlua.LuaState) callconv(.c) void {
@@ -26,7 +26,7 @@ fn add_to_x(lua: *zlua.Lua, num: usize) void {
     }
 
     const size = 256;
-    var buf = [_:0]u8{0} ** size;
+    var buf = std.mem.zeroes([size:0]u8);
     _ = std.fmt.bufPrint(&buf, "print(\"{}: \", x)", .{std.Thread.getCurrentId()}) catch return;
 
     // The printing from different threads does not always work nicely
@@ -36,7 +36,7 @@ fn add_to_x(lua: *zlua.Lua, num: usize) void {
 }
 
 pub fn main(init: std.process.Init) anyerror!void {
-    const gpa = init.gpa;
+    const gpa = std.heap.smp_allocator;
     io = init.io;
 
     // Initialize The Lua vm and get a reference to the main thread
